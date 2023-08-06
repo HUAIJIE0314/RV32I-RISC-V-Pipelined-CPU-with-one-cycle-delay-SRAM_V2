@@ -9,5 +9,5 @@
 |  prog4  |  6010  |
 
 - Improvement
-  - share computation resource (Adder)
+  - Share computation resource (Adder)
   - Optimize the Controller
