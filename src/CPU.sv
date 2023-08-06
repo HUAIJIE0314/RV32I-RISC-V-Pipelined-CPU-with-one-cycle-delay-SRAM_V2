@@ -243,18 +243,18 @@ Imm_Gen Imm_Gen(
 
 // << Controller >>
 Controller controller(
-  .opcode_i    (opcode_ID    ),
-  .funct3_i    (funct3_ID    ),
+  .opcode_i    (opcode_ID      ),
+  .funct3_i    (funct3_ID      ),
   .flush_i     (flush_IF_ID_dly),
-  .RegWrite_o  (RegWrite_ID  ),
-  .ALUsrcAsel_o(ALUsrcAsel_ID),
-  .ALUsrcBsel_o(ALUsrcBsel_ID),
-  .MemWrite_o  (MemWrite_ID  ),
-  .MemRead_o   (MemRead_ID   ),
-  .Branch_o    (Branch_ID    ),
-  .Jal_o       (Jal_ID       ),
-  .Jalr_o      (Jalr_ID      ),
-  .ALUop_o     (ALUop_ID     )
+  .RegWrite_o  (RegWrite_ID    ),
+  .ALUsrcAsel_o(ALUsrcAsel_ID  ),
+  .ALUsrcBsel_o(ALUsrcBsel_ID  ),
+  .MemWrite_o  (MemWrite_ID    ),
+  .MemRead_o   (MemRead_ID     ),
+  .Branch_o    (Branch_ID      ),
+  .Jal_o       (Jal_ID         ),
+  .Jalr_o      (Jalr_ID        ),
+  .ALUop_o     (ALUop_ID       )
 );
 
 // << About Comparator >>
