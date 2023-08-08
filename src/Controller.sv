@@ -1,3 +1,4 @@
+
 module Controller(
   opcode_i,
   funct3_i,
@@ -66,8 +67,8 @@ assign no_flush = ~flush_i;
 //---------------------------------------------------------------------
 //        WIRE CONNECTION                             
 //---------------------------------------------------------------------
-assign RegWrite_o      = decoderOut[`RTYPE] | decoderOut[`ITYPE] | decoderOut[`JALR ] | decoderOut[`AUIPC] | decoderOut[`LUI  ] | decoderOut[`JTYPE] | decoderOut[`CSR  ] | (decoderOut[`LOAD ]&no_flush);
-assign MemRead_o       = decoderOut[`LOAD ] & no_flush;
+assign RegWrite_o      = decoderOut[`RTYPE] | decoderOut[`ITYPE] | decoderOut[`JALR ] | decoderOut[`AUIPC] | decoderOut[`LUI  ] | decoderOut[`JTYPE] | decoderOut[`CSR  ] | (decoderOut[`LOAD ] & no_flush);
+assign MemRead_o       = decoderOut[`LOAD ]&no_flush;
 assign Branch_o        = decoderOut[`BTYPE];
 assign Jal_o           = decoderOut[`JTYPE];
 assign Jalr_o          = decoderOut[`JALR ];
