@@ -24,7 +24,6 @@ always_comb begin
     2'd1:out_o = in1_i;
     2'd2:out_o = in2_i;
     2'd3:out_o = in3_i;
-    default:out_o = in0_i;
   endcase
 end
 

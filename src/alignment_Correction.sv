@@ -26,7 +26,6 @@ always_comb begin
     2'd1:DM_WEB_o = {DM_WEB_i[2:0], 1'd0};//left shift 1
     2'd2:DM_WEB_o = {DM_WEB_i[1:0], 2'd0};//left shift 2
     2'd3:DM_WEB_o = {DM_WEB_i[0],   3'd0};//left shift 3
-    default:DM_WEB_o = DM_WEB_i;
   endcase
 end
 
@@ -37,7 +36,6 @@ always_comb begin
     2'd1:DM_DI_o = {DM_DI_i[23:0],  8'd0};//left shift 1*8
     2'd2:DM_DI_o = {DM_DI_i[15:0], 16'd0};//left shift 2*8
     2'd3:DM_DI_o = {DM_DI_i[7:0 ], 24'd0};//left shift 3*8
-    default:DM_DI_o = DM_DI_i;
   endcase
 end
 

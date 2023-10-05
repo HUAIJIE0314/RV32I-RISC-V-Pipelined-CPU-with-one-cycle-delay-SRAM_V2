@@ -1,4 +1,4 @@
-module CRS_Unit(
+module CSR_Unit(
   clk_i,
   rst_i,
   flush_IF_ID_i,
@@ -47,7 +47,6 @@ always_comb begin
     2'd1:CSR_OUT_o = cycle[63:32];
     2'd2:CSR_OUT_o = instret[31:0];
     2'd3:CSR_OUT_o = instret[63:32];
-    default:CSR_OUT_o = {`DATA_WIDTH{1'b0}};
   endcase
 end
 

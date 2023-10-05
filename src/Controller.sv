@@ -1,6 +1,7 @@
 module Controller(
   opcode_i,
   funct3_i,
+  funct7_0_i,
   flush_i,
   RegWrite_o,
   ALUsrcAsel_o,
@@ -17,6 +18,7 @@ module Controller(
 //---------------------------------------------------------------------
 input  logic [`OP_WIDTH-1:0]     opcode_i;
 input  logic [2:0]               funct3_i;
+input  logic                   funct7_0_i;
 input  logic                      flush_i;//prevent the nop instruction(for Load type)
 output logic                   RegWrite_o;
 output logic [1:0]           ALUsrcAsel_o;
@@ -79,7 +81,7 @@ assign ALUsrcBsel_o[0] = decoderOut[`ITYPE] | decoderOut[`STYPE] | decoderOut[`A
 assign ALUsrcBsel_o[1] = decoderOut[`JALR ] | decoderOut[`JTYPE] | decoderOut[`CSR  ];
 
 assign ALUop_o[0]      = decoderOut[`RTYPE];
-assign ALUop_o[1]      = decoderOut[`ITYPE];
+assign ALUop_o[1]      = decoderOut[`ITYPE] | (decoderOut[`RTYPE] & funct7_0_i);
 
 assign MemWrite_o[0]   = (!decoderOut[`STYPE]) | (&funct3_i);// !(decoderOut[`STYPE] & !(&funct3_i)) = !decoderOut[`STYPE] | (&funct3_i)
 assign MemWrite_o[1]   = !(decoderOut[`STYPE] & (^funct3_i));
@@ -128,12 +130,14 @@ end
 endmodule
 
 
+
 // ----------------------------------- opcode 7-bits ALL MUX -----------------------------------
 
 /*
 module Controller(
   opcode_i,
   funct3_i,
+  funct7_0_i,
   flush_i,
   RegWrite_o,
   ALUsrcAsel_o,
@@ -150,6 +154,7 @@ module Controller(
 //---------------------------------------------------------------------
 input  logic [`OP_WIDTH-1:0]     opcode_i;
 input  logic [2:0]               funct3_i;
+input  logic                   funct7_0_i;//for M-extension instruction
 input  logic                      flush_i;//prevent the nop instruction(for Load type)
 output logic                   RegWrite_o;
 output logic [1:0]           ALUsrcAsel_o;
@@ -220,7 +225,8 @@ always_comb begin
       Branch_o      = 1'b0;
       Jal_o         = 1'b0;
       Jalr_o        = 1'b0;
-      ALUop_o       = 2'd1;
+      if(funct7_0_i)ALUop_o = 2'd3;
+      else          ALUop_o = 2'd1;
     end
     `ITYPE:begin
       RegWrite_o    = 1'b1;
@@ -341,11 +347,8 @@ always_comb begin
 end
 
 endmodule
+
 */
-
-
-
-
 
 
 // ----------------------------------- opcode 7-bits MUX & if -----------------------------------

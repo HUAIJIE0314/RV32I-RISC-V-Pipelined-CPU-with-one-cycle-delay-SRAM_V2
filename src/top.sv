@@ -1,7 +1,7 @@
 `include "CPU.sv"
 `include "define.svh"
-`include "../SRAM/SRAM_wrapper.sv"
-`include "../SRAM/SRAM_rtl.sv"
+`include "SRAM_wrapper.sv"
+
 
 module top(
   clk,
@@ -16,6 +16,7 @@ input logic rst;
 //        LOGIC DECLARATION                             
 //---------------------------------------------------------------------
 // << IM Ports >> 
+logic                         IM_OE;
 logic [$clog2(`IM_DEPTH)-1:0]  IM_A;
 logic [`DATA_WIDTH-1:0]       IM_DO;
 // << DM Ports >> 
@@ -31,6 +32,7 @@ logic [`DATA_WIDTH-1:0]       DM_DI;
 CPU CPU(
   .clk   (clk   ),// clock signal
   .rst   (rst   ),// activate HIGH reset signal
+  .IM_OE (IM_OE ),// Instruction Memory Read Enable
   .IM_A  (IM_A  ),// Instruction Memory Read Address
   .IM_DO (IM_DO ),// Instruction Memory Read Data
   .DM_OE (DM_OE ),// Data Memory Read Enable
@@ -43,7 +45,7 @@ CPU CPU(
 SRAM_wrapper IM1(
   .CK (clk   ),// SRAM clock
   .CS (1'b1  ),// SRAM chip Select   (activate HIGH)
-  .OE (1'b1  ),// SRAM output enable (activate HIGH)
+  .OE (IM_OE ),// SRAM output enable (activate HIGH)
   .WEB(4'hf  ),// SRAM write enable  (activate LOW)
   .A  (IM_A  ),// SRAM address
   .DI (32'd0 ),// SRAM write data
