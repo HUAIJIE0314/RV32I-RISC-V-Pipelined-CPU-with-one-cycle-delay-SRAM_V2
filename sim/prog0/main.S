@@ -167,6 +167,47 @@ and:
   and t0, t1, t0    # t0 = 0x10305070
   sw t0, 0(s0)
   addi s0, s0, 4
+mul:
+  li t0, 0x00001234 # 
+  li t1, 0x0000000f # 
+  mul t0, t0, t1    # t0 = 0x0001110c
+  mul t0, t0, t1    # t0 = 0x000fffb4
+  li t1, 0x000000a0 # 
+  mul t0, t0, t1    # t0 = 0x09ffd080
+  li t1, 0x0000000e # 
+  mul t0, t0, t1    # t0 = 0x8bfd6700
+  sw t0, 0(s0)
+  addi s0, s0, 4
+mulh:
+  li t0, 0x12345678 # 
+  li t1, 0xf0f0f0f0 # 
+  mulh t0, t0, t1    # t0 = 0xFEEDDCCB, t0 * t1 = 0xFEEDDCCB_B2A1907C
+  mulh t0, t0, t1    # t0 = 0x00102030, t0 * t1 = 0x00102030_4C4D4E50
+  li t1, 0xffff0000 # 
+  mulh t0, t0, t1    # t0 = 0xFFFFFFFE, t0 * t1 = 0xFFFFFFFE_71720000
+  mulh t0, t0, t1    # t0 = 0x00000000, t0 * t1 = 0x00000000_00020000
+  sw t0, 0(s0)
+  addi s0, s0, 4
+mulhu:
+  li t0, 0x12345678 # 
+  li t1, 0xf0f0f0f0 # 
+  mulhu t0, t0, t1    # t0 = 0x11223343, t0 * t1 = 0x11223343_B2A18FE0
+  mulhu t0, t0, t1    # t0 = 0x1020303E, t0 * t1 = 0x1020303E_FEEEDEA8
+  li t1, 0xffff0000 # 
+  mulhu t0, t0, t1    # t0 = 0x1020201D, t0 * t1 = 0x1020201D_CFC1FFB0
+  mulhu t0, t0, t1    # t0 = 0x10200FFC, t0 * t1 = 0x10200FFC_DFE2FFD8
+  sw t0, 0(s0)
+  addi s0, s0, 4
+mulhsu:
+  li t0, 0xf0f0f0f0 # 
+  li t1, 0xf0f0f0f0 #  
+  mulhsu t0, t0, t1    # t0 = 0xF1D3B596, t0 * t1 = 0xF1D3B596_A4C2E0D8
+  mulhsu t0, t0, t1    # t0 = 0xF2A92360, t0 * t1 = 0xF2A92360_0D56DC8C
+  li t1, 0xffff0000 # 
+  mulhsu t0, t0, t1    # t0 = 0xF2A930B6, t0 * t1 = 0xF2A930B6_DCA00028
+  mulhsu t0, t0, t1    # t0 = 0xF2A93E0C, t0 * t1 = 0xF2A93E0C_CF4A0000
+  sw t0, 0(s0)
+  addi s0, s0, 4
 load:
   la t1, lw_data
   lw t0, 0(t1)
